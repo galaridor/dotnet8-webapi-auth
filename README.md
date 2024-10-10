@@ -1,5 +1,5 @@
 
-# ASP.NET Core Web API with Dapper, PostgreSQL, and JWT Authentication
+# ASP.NET Core Web API with Dapper, PostgreSQL and JWT Authentication
 
 This project demonstrates how to create an ASP.NET Core 8 Web API for user registration and login using JWT (JSON Web Tokens) for authentication. It uses **Dapper** for database interaction and **PostgreSQL** as the database. Swagger is also integrated for easy API testing.
 
