@@ -21,8 +21,7 @@ This project demonstrates how to create an ASP.NET Core 8 Web API for user regis
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/aspnetcore-dapper-jwt.git
-cd aspnetcore-dapper-jwt
+git clone https://github.com/galaridor/dotnet8-webapi-auth.git
 ```
 
 ### 2. Install Dependencies
