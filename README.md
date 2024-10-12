@@ -1,7 +1,7 @@
 
-# ASP.NET Core Web API with Dapper, PostgreSQL and JWT Authentication
+# ASP.NET Core Web API with Dapper, PostgreSQL, JWT Authentication, and Docker Support
 
-This project demonstrates how to create an ASP.NET Core 8 Web API for user registration and login using JWT (JSON Web Tokens) for authentication. It uses **Dapper** for database interaction and **PostgreSQL** as the database. Swagger is also integrated for easy API testing.
+This project demonstrates how to create an ASP.NET Core 8 Web API for user registration and login using JWT (JSON Web Tokens) for authentication. It uses **Dapper** for database interaction, **PostgreSQL** as the database, and **Docker** for containerization. Swagger is also integrated for easy API testing.
 
 ## Features
 - **JWT Authentication**: Secure user authentication with JWT tokens.
@@ -9,12 +9,14 @@ This project demonstrates how to create an ASP.NET Core 8 Web API for user regis
 - **Dapper**: Lightweight ORM for database access with PostgreSQL.
 - **PostgreSQL**: Database management system.
 - **Swagger**: API documentation and testing interface.
+- **Docker Support**: Easily containerize and run the application using Docker.
 
 ## Prerequisites
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [PostgreSQL](https://www.postgresql.org/download/)
 - [Dapper](https://www.nuget.org/packages/Dapper)
 - [Npgsql](https://www.nuget.org/packages/Npgsql)
+- [Docker](https://www.docker.com/products/docker-desktop)
 
 ## Getting Started
 
@@ -113,6 +115,28 @@ Swagger UI is available at `https://localhost:<port>/swagger`. You can use it to
 
 Upon successful login, you will receive a JWT token in the response. Use this token to access protected routes by adding it to the `Authorization` header as `Bearer <your_token>`.
 
+## Docker Support
+
+You can run this application in a Docker container for easier deployment and management.
+
+### 1. Build Docker Image
+
+```bash
+docker build -t your-api-image .
+```
+
+### 2. Run the Docker Container
+
+```bash
+docker run -p 8080:8080 your-api-image
+```
+
+This will expose the application on `http://localhost:8080`.
+
+### 3. Access Swagger UI
+
+Navigate to `http://localhost:8080/swagger` to test the API.
+
 ## Project Structure
 
 - `Controllers/` - Contains the `AuthController` for handling registration and login.
@@ -126,8 +150,8 @@ Upon successful login, you will receive a JWT token in the response. Use this to
 
 - **JWT Key Size Error**: Ensure that the JWT key in your `appsettings.json` is at least 32 characters long.
 - **Database Connection**: Double-check your PostgreSQL connection string in `appsettings.json` and ensure the PostgreSQL service is running.
+- **Docker Issues**: Ensure Docker is installed and running, and that the correct ports are exposed in the container.
 
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
