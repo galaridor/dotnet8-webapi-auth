@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 public class AuthController : ControllerBase
 {
 	private readonly AuthService _authService;
+	private readonly IConfiguration _configuration;
 
-	public AuthController(AuthService authService)
+	public AuthController(AuthService authService, IConfiguration configuration)
 	{
 		_authService = authService;
+		_configuration = configuration;
 	}
 
 	[HttpPost("register")]
@@ -28,6 +30,14 @@ public class AuthController : ControllerBase
 		var token = await _authService.LoginAsync(loginDto);
 		if (token == "Invalid credentials")
 			return Unauthorized(token);
+
+		Response.Cookies.Append("jwt", token, new CookieOptions
+		{
+			HttpOnly = true,
+			Secure = true, 
+			SameSite = SameSiteMode.Strict,
+			Expires = DateTime.UtcNow.AddMinutes(int.Parse(_configuration["Jwt:TokenExpiryMinutes"]!))
+		});
 
 		return Ok(new { token });
 	}

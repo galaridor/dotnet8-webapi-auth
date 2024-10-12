@@ -18,7 +18,7 @@ public class UserRepository
 		return new NpgsqlConnection(_connectionString);
 	}
 
-	public async Task<User> GetUserByUsernameAsync(string username)
+	public async Task<User?> GetUserByUsernameAsync(string username)
 	{
 		var query = "SELECT * FROM Users WHERE Username = @Username";
 
