@@ -1,11 +1,12 @@
 
 # ASP.NET Core Web API with Dapper, PostgreSQL, JWT Authentication, and Docker Support
 
-This project demonstrates how to create an ASP.NET Core 8 Web API for user registration and login using JWT (JSON Web Tokens) for authentication. It uses **Dapper** for database interaction, **PostgreSQL** as the database, and **Docker** for containerization. Swagger is also integrated for easy API testing.
+This project demonstrates how to create an ASP.NET Core 8 Web API for user registration and login using JWT (JSON Web Tokens) for authentication. It uses **Dapper** for database interaction, **PostgreSQL** as the database and **Docker** for containerization. Swagger is also integrated for easy API testing.
 
 ## Features
 - **JWT Authentication**: Secure user authentication with JWT tokens.
 - **User Registration and Login**: Users can register and log in to receive JWT tokens.
+- **HttpOnly Cookies**: JWT tokens are stored in secure HttpOnly cookies for better security.
 - **Dapper**: Lightweight ORM for database access with PostgreSQL.
 - **PostgreSQL**: Database management system.
 - **Swagger**: API documentation and testing interface.
@@ -104,7 +105,7 @@ Swagger UI is available at `https://localhost:<port>/swagger`. You can use it to
   ```
 
 #### **POST /api/auth/login**
-- Log in a registered user and receive a JWT token.
+- Log in a registered user and receive a JWT token stored in a HttpOnly cookie.
 - Request Body:
   ```json
   {
@@ -113,7 +114,7 @@ Swagger UI is available at `https://localhost:<port>/swagger`. You can use it to
   }
   ```
 
-Upon successful login, you will receive a JWT token in the response. Use this token to access protected routes by adding it to the `Authorization` header as `Bearer <your_token>`.
+Upon successful login, you will receive a JWT token in an HttpOnly cookie. Use this token to access protected routes by making requests to the API without needing to handle the token directly in the client.
 
 ## Docker Support
 
