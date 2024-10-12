@@ -44,18 +44,14 @@ dotnet add package Swashbuckle.AspNetCore
    ```sql
    CREATE DATABASE jwt_demo;
    ```
+Upon application startup, the database initializer will ensure the Users table is created (if it doesn't exist).
+A default admin user is created with the following credentials:
 
-2. Create the `Users` table:
-   ```sql
-   CREATE TABLE Users (
-       Id SERIAL PRIMARY KEY,
-       Username VARCHAR(100) NOT NULL,
-       PasswordHash TEXT NOT NULL,
-       Role VARCHAR(50) DEFAULT 'User'
-   );
-   ```
-
-3. Update the connection string in `appsettings.json` with your PostgreSQL credentials:
+```
+Username: Administrator
+Password: Administrator1!
+```  
+2. Update the connection string in `appsettings.json` with your PostgreSQL credentials:
 
    ```json
    {
@@ -141,10 +137,12 @@ Navigate to `http://localhost:8080/swagger` to test the API.
 ## Project Structure
 
 - `Controllers/` - Contains the `AuthController` for handling registration and login.
+- `Database/` - Contains `DatabaseInitializer` and `DbConnectionFactory` for initializing the databse.
 - `Extensions/` - Contains `ServiceExtensions` to register Authentication service and `SwaggerExtensions` to register swagger.
 - `Models/` - Contains the `User`, `RegisterDto`, and `LoginDto` models.
 - `Services/` - Contains the `AuthService` which manages registration, login, and JWT generation.
 - `Repositories/` - Contains the `UserRepository` which handles database interactions using Dapper.
+- `Validation/` - Contains the `RegisterDtoValidator` for validating user registration.
 
 ## Troubleshooting
 
