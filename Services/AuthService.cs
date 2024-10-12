@@ -1,19 +1,24 @@
 ﻿using dotnet8_webapi_auth.Models;
+using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using ValidationException = FluentValidation.ValidationException;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 public class AuthService
 {
 	private readonly UserRepository _userRepository;
 	private readonly IConfiguration _configuration;
+	private readonly IValidator<RegisterDto> _validator;
 
-	public AuthService(UserRepository userRepository, IConfiguration configuration)
+	public AuthService(UserRepository userRepository, IConfiguration configuration, IValidator<RegisterDto> validator)
 	{
 		_userRepository = userRepository;
 		_configuration = configuration;
+		_validator = validator;
 	}
 
 	public async Task<string> RegisterAsync(RegisterDto registerDto)
@@ -22,6 +27,13 @@ public class AuthService
 
 		if (existingUser != null) 
 			return "Username already exists";
+
+		ValidationResult result = await _validator.ValidateAsync(registerDto);
+
+		if (!result.IsValid)
+		{
+			throw new ValidationException(result?.Errors?.FirstOrDefault()?.ErrorMessage);
+		}
 
 		string passwordHash = HashPassword(registerDto.Password);
 
