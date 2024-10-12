@@ -1,4 +1,5 @@
 ﻿using dotnet8_webapi_auth.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 [ApiController]
@@ -15,9 +16,11 @@ public class AuthController : ControllerBase
 	}
 
 	[HttpPost("register")]
+	[AllowAnonymous]
 	public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
 	{
-		var result = await _authService.RegisterAsync(registerDto);
+		string? result = await _authService.RegisterAsync(registerDto);
+
 		if (result == "User registered successfully")
 			return Ok(result);
 
@@ -25,9 +28,11 @@ public class AuthController : ControllerBase
 	}
 
 	[HttpPost("login")]
+	[AllowAnonymous]
 	public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
 	{
-		var token = await _authService.LoginAsync(loginDto);
+		string? token = await _authService.LoginAsync(loginDto);
+
 		if (token == "Invalid credentials")
 			return Unauthorized(token);
 

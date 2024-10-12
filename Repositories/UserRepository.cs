@@ -20,9 +20,9 @@ public class UserRepository
 
 	public async Task<User?> GetUserByUsernameAsync(string username)
 	{
-		var query = "SELECT * FROM Users WHERE Username = @Username";
+		string query = "SELECT * FROM Users WHERE Username = @Username";
 
-		using (var connection = CreateConnection())
+		using (NpgsqlConnection connection = CreateConnection())
 		{
 			return await connection.QuerySingleOrDefaultAsync<User>(query, new { Username = username });
 		}
@@ -30,9 +30,9 @@ public class UserRepository
 
 	public async Task CreateUserAsync(User user)
 	{
-		var query = "INSERT INTO Users (Username, PasswordHash, Role) VALUES (@Username, @PasswordHash, @Role)";
+		string query = "INSERT INTO Users (Username, PasswordHash, Role) VALUES (@Username, @PasswordHash, @Role)";
 
-		using (var connection = CreateConnection())
+		using (NpgsqlConnection connection = CreateConnection())
 		{
 			await connection.ExecuteAsync(query, user);
 		}
