@@ -141,6 +141,7 @@ Navigate to `http://localhost:8080/swagger` to test the API.
 ## Project Structure
 
 - `Controllers/` - Contains the `AuthController` for handling registration and login.
+- `Extensions/` - Contains `ServiceExtensions` to register Authentication service and `SwaggerExtensions` to register swagger.
 - `Models/` - Contains the `User`, `RegisterDto`, and `LoginDto` models.
 - `Services/` - Contains the `AuthService` which manages registration, login, and JWT generation.
 - `Repositories/` - Contains the `UserRepository` which handles database interactions using Dapper.
