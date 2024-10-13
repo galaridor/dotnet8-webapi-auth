@@ -36,6 +36,7 @@ dotnet add package Dapper
 dotnet add package Npgsql
 dotnet add package Microsoft.AspNetCore.Authentication.JwtBearer
 dotnet add package Swashbuckle.AspNetCore
+dotnet add package FluentValidation
 ```
 
 ### 3. Set up PostgreSQL Database
